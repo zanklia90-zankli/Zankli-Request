@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
-import { Request, UserRole, ApprovalStatus } from '../../types.ts';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { useAuth } from '../../hooks/useAuth.ts';
-import { supabase } from '../../lib/supabaseClient.ts';
+import { Request, UserRole, ApprovalStatus } from '../../types';
+import { useRequests } from '../../hooks/useRequests';
+import { useAuth } from '../../hooks/useAuth';
+import { supabase } from '../../lib/supabaseClient';
 import { X, Send } from 'lucide-react';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://aistudiocdn.com/pdfjs-dist@5.4.296/build/pdf.worker.min.mjs`;

@@ -1,14 +1,14 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Request, ApprovalStatus, UserRole, RequestType, StoreRequisitionItem } from '../../types.ts';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { useAuth } from '../../hooks/useAuth.ts';
-import { useVendors } from '../../hooks/useVendors.ts';
+import { Request, ApprovalStatus, UserRole, RequestType, StoreRequisitionItem } from '../../types';
+import { useRequests } from '../../hooks/useRequests';
+import { useAuth } from '../../hooks/useAuth';
+import { useVendors } from '../../hooks/useVendors';
 import { X, CheckCircle, XCircle, Clock, Paperclip, Edit, Send, ShoppingCart, Download, MessageSquare, AlertTriangle, Loader2 } from 'lucide-react';
-import PdfViewerWithComments from './PdfViewerWithComments.tsx';
-import RequestPDFLayout from './RequestPDFLayout.tsx';
-import SignaturePad, { SignaturePadRef } from '../shared/SignaturePad.tsx';
+import PdfViewerWithComments from './PdfViewerWithComments';
+import RequestPDFLayout from './RequestPDFLayout';
+import SignaturePad, { SignaturePadRef } from '../shared/SignaturePad';
 
 interface RequestDetailsModalProps {
     request: Request;

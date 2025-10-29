@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { Request, ApprovalStatus, RequestType } from '../../types.ts';
+import { useRequests } from '../../hooks/useRequests';
+import { Request, ApprovalStatus, RequestType } from '../../types';
 
 interface ItemRequestInboxProps {
   onCreateProcurement: (request: Request) => void;

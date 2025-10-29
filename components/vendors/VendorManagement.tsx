@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useVendors } from '../../hooks/useVendors.ts';
+import { useVendors } from '../../hooks/useVendors';
 import { Plus, X, AlertTriangle } from 'lucide-react';
 
 // Moved InputField outside the main component to prevent re-rendering on state change.

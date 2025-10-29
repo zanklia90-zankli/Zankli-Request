@@ -1,11 +1,11 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import { AuthProvider } from './context/AuthContext.tsx';
-import { RequestProvider } from './context/RequestContext.tsx';
-import { VendorProvider } from './context/VendorContext.tsx';
-import { StoreProvider } from './context/StoreContext.tsx';
+import App from './App';
+import { AuthProvider } from './context/AuthContext';
+import { RequestProvider } from './context/RequestContext';
+import { VendorProvider } from './context/VendorContext';
+import { StoreProvider } from './context/StoreContext';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

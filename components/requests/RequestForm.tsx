@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { RequestType, User, Request, ApprovalStatus, StoreRequisitionItem, StoreItem } from '../../types.ts';
-import { useAuth } from '../../hooks/useAuth.ts';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { useVendors } from '../../hooks/useVendors.ts';
-import { useStore } from '../../hooks/useStore.ts';
-import ApprovalQueueSelector from './ApprovalQueueSelector.tsx';
+import { RequestType, User, Request, ApprovalStatus, StoreRequisitionItem, StoreItem } from '../../types';
+import { useAuth } from '../../hooks/useAuth';
+import { useRequests } from '../../hooks/useRequests';
+import { useVendors } from '../../hooks/useVendors';
+import { useStore } from '../../hooks/useStore';
+import ApprovalQueueSelector from './ApprovalQueueSelector';
 import { Info, Plus, X, Search, Loader2, AlertTriangle } from 'lucide-react';
-import SignaturePad, { SignaturePadRef } from '../shared/SignaturePad.tsx';
-import { InputField, TextAreaField, SelectField } from '../shared/FormFields.tsx';
+import SignaturePad, { SignaturePadRef } from '../shared/SignaturePad';
+import { InputField, TextAreaField, SelectField } from '../shared/FormFields';
 
 interface RequestFormProps {
     requestType: RequestType;

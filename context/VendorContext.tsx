@@ -1,9 +1,9 @@
 
 
 import React, { createContext, useState, ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { Vendor } from '../types.ts';
-import { supabase } from '../lib/supabaseClient.ts';
-import { useAuth } from '../hooks/useAuth.ts';
+import { Vendor } from '../types';
+import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../hooks/useAuth';
 
 interface VendorContextType {
   vendors: Vendor[];

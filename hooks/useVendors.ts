@@ -1,6 +1,6 @@
 
 import { useContext } from 'react';
-import { VendorContext } from '../context/VendorContext.tsx';
+import { VendorContext } from '../context/VendorContext';
 
 export const useVendors = () => {
   const context = useContext(VendorContext);

@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { LogOut, LayoutDashboard, FilePlus2, ChevronDown, ChevronUp, Droplets, ShoppingCart, CalendarOff, PackagePlus, UserCircle, Bell, Inbox, Building, Menu, Warehouse } from 'lucide-react';
-import { useAuth } from '../../hooks/useAuth.ts';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { Request, RequestType, UserRole, ApprovalStatus, Notification } from '../../types.ts';
-import RequestList from './RequestList.tsx';
-import RequestForm from '../requests/RequestForm.tsx';
-import ItemRequestInbox from './ItemRequestInbox.tsx';
-import VendorManagement from '../vendors/VendorManagement.tsx';
-import RequestDetailsModal from '../requests/RequestDetailsModal.tsx';
-import StoreManagement from '../store/StoreManagement.tsx';
+import { useAuth } from '../../hooks/useAuth';
+import { useRequests } from '../../hooks/useRequests';
+import { Request, RequestType, UserRole, ApprovalStatus, Notification } from '../../types';
+import RequestList from './RequestList';
+import RequestForm from '../requests/RequestForm';
+import ItemRequestInbox from './ItemRequestInbox';
+import VendorManagement from '../vendors/VendorManagement';
+import RequestDetailsModal from '../requests/RequestDetailsModal';
+import StoreManagement from '../store/StoreManagement';
 
 const IconMap = {
     [RequestType.DIESEL]: <Droplets className="h-5 w-5 mr-3 text-zankli-orange-500" />,

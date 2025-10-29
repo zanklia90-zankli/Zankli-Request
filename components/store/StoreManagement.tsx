@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStore } from '../../hooks/useStore.ts';
+import { useStore } from '../../hooks/useStore';
 import { Plus, X, AlertTriangle } from 'lucide-react';
 
 const InputField = ({ label, name, type = 'text', required = false, onChange, value } : {label:string, name:string, type?:string, required?:boolean, onChange:(e: React.ChangeEvent<HTMLInputElement>)=>void, value?: string}) => (

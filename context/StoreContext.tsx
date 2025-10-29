@@ -1,9 +1,9 @@
 
 
 import React, { createContext, useState, ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { StoreItem } from '../types.ts';
-import { supabase } from '../lib/supabaseClient.ts';
-import { useAuth } from '../hooks/useAuth.ts';
+import { StoreItem } from '../types';
+import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../hooks/useAuth';
 
 interface StoreContextType {
   storeItems: StoreItem[];

@@ -1,9 +1,9 @@
 
 import React, { forwardRef, useEffect, useRef, useState, memo, useCallback } from 'react';
 import * as pdfjsLib from 'pdfjs-dist';
-import { Request, ApprovalStatus, StoreRequisitionItem, PdfComment } from '../../types.ts';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { supabase } from '../../lib/supabaseClient.ts';
+import { Request, ApprovalStatus, StoreRequisitionItem, PdfComment } from '../../types';
+import { useRequests } from '../../hooks/useRequests';
+import { supabase } from '../../lib/supabaseClient';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://aistudiocdn.com/pdfjs-dist@5.4.296/build/pdf.worker.min.mjs`;
 

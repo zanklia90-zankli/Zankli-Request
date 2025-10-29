@@ -73,18 +73,6 @@ export interface StoreRequisitionItem {
     totalCost: number;
 }
 
-// FIX: Added Annotation interface to support PDF annotations.
-export interface Annotation {
-  id: string;
-  type: 'draw' | 'text';
-  page: number;
-  x: number;
-  y: number;
-  content?: string;
-  color: string;
-  points?: { x: number; y: number }[];
-}
-
 export interface Request {
   id: string;
   requesterId: string;
@@ -101,8 +89,6 @@ export interface Request {
   pdfComments?: PdfComment[];
   requesterSignature?: string;
   vendorId?: string;
-  // FIX: Added optional annotations property to the Request interface.
-  annotations?: Annotation[];
 }
 
 export interface Notification {

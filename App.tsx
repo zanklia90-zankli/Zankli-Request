@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { useAuth } from './hooks/useAuth.ts';
-import Login from './components/auth/Login.tsx';
-import Dashboard from './components/dashboard/Dashboard.tsx';
+import { useAuth } from './hooks/useAuth';
+import Login from './components/auth/Login';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
   const { currentUser } = useAuth();

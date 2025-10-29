@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
-import { User } from '../types.ts';
-import { supabase } from '../lib/supabaseClient.ts';
-import { AuthChangeEvent, Session } from '@supabase/supabase-js';
-import { Loader2 } from 'lucide-react';
+import { User } from '../types';
+import { supabase } from '../lib/supabaseClient';
+import { Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
   currentUser: User | null;
@@ -19,44 +18,50 @@ interface AuthProviderProps {
   children?: ReactNode;
 }
 
+// Helper function to fetch user profile, used after a successful login.
+const fetchUserProfile = async (session: Session): Promise<User> => {
+    const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('role, full_name')
+        .eq('id', session.user.id)
+        .single();
+
+    if (error) {
+        console.error("Error fetching user profile:", error.message);
+        throw error; // Propagate error to be caught by the caller
+    }
+
+    if (profile) {
+        return {
+            id: session.user.id,
+            email: session.user.email!,
+            role: profile.role,
+            fullName: profile.full_name,
+        };
+    }
+    
+    throw new Error("User is authenticated but a profile is missing.");
+};
+
+
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [isInitializing, setIsInitializing] = useState(true);
+  // Per the new requirement, we no longer initialize a session on page load.
+  // The app will always start in a logged-out state, so isInitializing is always false.
+  const [isInitializing, setIsInitializing] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   useEffect(() => {
-    // This effect handles auth state changes and is the single source of truth.
+    // The listener now ONLY handles explicit SIGNED_OUT events.
+    // It no longer handles SIGNED_IN, which is now managed directly by the login function.
+    // This prevents the app from trying to auto-login on refresh.
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event: AuthChangeEvent, session: Session | null) => {
-        setSession(session);
-
-        if (session?.user) {
-          const { data: profile, error } = await supabase
-            .from('profiles')
-            .select('role, full_name')
-            .eq('id', session.user.id)
-            .single();
-
-          if (profile) {
-            setCurrentUser({
-              id: session.user.id,
-              email: session.user.email!,
-              role: profile.role,
-              fullName: profile.full_name,
-            });
-          } else {
-            console.error("User authenticated but profile missing. Forcing logout.", error);
-            await supabase.auth.signOut();
-            setCurrentUser(null);
-          }
-        } else {
+      (event, _session) => {
+        if (event === 'SIGNED_OUT') {
           setCurrentUser(null);
+          setSession(null);
         }
-        
-        // Mark both initial loading and any active authentication process as complete.
-        setIsInitializing(false);
-        setIsAuthenticating(false);
       }
     );
 
@@ -67,26 +72,43 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = useCallback(async (email: string, password: string) => {
     setIsAuthenticating(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      // If the API call itself fails, immediately stop the authenticating state.
-      setIsAuthenticating(false); 
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            return { error: error.message };
+        }
+
+        if (data.session) {
+            try {
+                const userProfile = await fetchUserProfile(data.session);
+                setCurrentUser(userProfile);
+                setSession(data.session);
+                return { error: null }; // Success
+            } catch (profileError: any) {
+                // Critical error: user exists in auth but not in profiles table.
+                // Log them out to prevent a broken state.
+                await supabase.auth.signOut();
+                return { error: "Login successful, but failed to retrieve user profile. Please contact support." };
+            }
+        }
+        
+        return { error: "An unknown error occurred during login." };
+    } catch (e: any) {
+        return { error: e.message || "An unexpected network error occurred." };
+    } finally {
+        setIsAuthenticating(false);
     }
-    // On success, onAuthStateChange will fire and set isAuthenticating to false.
-    return { error: error ? error.message : null };
   }, []);
 
   const logout = useCallback(async () => {
-    setIsAuthenticating(true);
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error("Error logging out:", error.message);
-      // If sign out fails, stop the authenticating state to prevent UI from being stuck.
-      setIsAuthenticating(false);
     }
-    // On success, onAuthStateChange will fire, clearing the user and setting isAuthenticating to false.
+    // The onAuthStateChange listener will handle clearing the state.
   }, []);
-
+  
   const value = useMemo(() => ({ 
     session, 
     currentUser, 
@@ -96,15 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     isAuthenticating
   }), [session, currentUser, isInitializing, isAuthenticating, login, logout]);
 
-  if (isInitializing) {
-      return (
-          <div className="flex flex-col justify-center items-center min-h-screen bg-zankli-cream-50">
-              <Loader2 className="h-10 w-10 animate-spin text-zankli-orange-500" />
-              <p className="mt-4 text-gray-600">Initializing Session...</p>
-          </div>
-      );
-  }
-
+  // The "Initializing Session..." screen is no longer needed as the app loads instantly.
   return (
     <AuthContext.Provider value={value}>
       {children}

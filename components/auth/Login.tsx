@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth.ts';
+import { useAuth } from '../../hooks/useAuth';
 import { ShieldCheck } from 'lucide-react';
 
 const Login = () => {

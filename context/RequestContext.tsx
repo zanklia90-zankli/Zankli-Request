@@ -1,9 +1,9 @@
 
 
 import React, { createContext, useState, ReactNode, useCallback, useEffect, useMemo } from 'react';
-import { Request, ApprovalStatus, PdfComment, RequestType, Approver, User, UserRole } from '../types.ts';
-import { supabase } from '../lib/supabaseClient.ts';
-import { useAuth } from '../hooks/useAuth.ts';
+import { Request, ApprovalStatus, PdfComment, RequestType, Approver, User, UserRole } from '../types';
+import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../hooks/useAuth';
 
 interface RequestContextType {
   requests: Request[];

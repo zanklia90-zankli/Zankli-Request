@@ -1,9 +1,9 @@
 
 
 import React, { useState, useMemo, useCallback } from 'react';
-import { useRequests } from '../../hooks/useRequests.ts';
-import { useAuth } from '../../hooks/useAuth.ts';
-import { Request, UserRole, ApprovalStatus, RequestType } from '../../types.ts';
+import { useRequests } from '../../hooks/useRequests';
+import { useAuth } from '../../hooks/useAuth';
+import { Request, UserRole, ApprovalStatus, RequestType } from '../../types';
 import { Bell, Droplets, Coins, Hash, User, CalendarDays, PackagePlus, Warehouse, Hourglass, UserCheck, UserX, Send, Search, Loader2, AlertTriangle } from 'lucide-react';
 
 interface RequestListProps {

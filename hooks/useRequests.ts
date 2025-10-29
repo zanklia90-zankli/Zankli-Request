@@ -1,6 +1,6 @@
 
 import { useContext } from 'react';
-import { RequestContext } from '../context/RequestContext.tsx';
+import { RequestContext } from '../context/RequestContext';
 
 export const useRequests = () => {
   const context = useContext(RequestContext);
